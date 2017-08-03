@@ -6,8 +6,12 @@ public class HpController : MonoBehaviour {
 
 //	private Player player;
 
-	public Image lifeGage;
+	public EnemyWarriorController enemy;
+
+	public Image lifeGreenGage;
 	public Image lifeRedGage;
+	public float maxhp = 1.0f;
+	public float hp = 1.0f;
 
 	void Start () {
 //		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -15,14 +19,44 @@ public class HpController : MonoBehaviour {
 	}
 
 	void Update () {
-//		lifeGage.fillAmount = player.life / player.maxLife;
+//		if (Input.GetKeyDown(KeyCode.UpArrow)) {
+////			lifeGreenGage.fillAmount = 0.8f;
+//			iTween.ValueTo(this.gameObject, iTween.Hash(
+//				"from", 1f,
+//				"to", 0.5f,
+//				"time", 1f,
+//				"easetype", iTween.EaseType.linear,
+//				"onupdate", "downLifeRedGage",
+//				"onupdatetarget", this.gameObject
+//			));
+//		}
 	}
 
 	private void initParameter() {
-		lifeGage = GameObject.Find("LifeGage").GetComponent<Image>();
-		lifeGage.fillAmount = 1;
+		lifeGreenGage = GameObject.Find("LifeGreenGage").GetComponent<Image>();
+		lifeGreenGage.fillAmount = 1;
 
 		lifeRedGage = GameObject.Find("LifeRedGage").GetComponent<Image>();
 		lifeRedGage.fillAmount = 1;
+	}
+
+	public void downLifeRedGage() {
+			lifeGreenGage.fillAmount = hp;
+
+	}
+
+	public void Subtraction(float damage)
+	{
+		Debug.Log(string.Format("DAMAGE {0}", damage));
+		hp = hp - damage;
+		Debug.Log(hp);
+		iTween.ValueTo(this.gameObject, iTween.Hash(
+			"from", maxhp,
+			"to", maxhp - damage,
+			"time", 1.0f,
+			"easetype", iTween.EaseType.linear,
+			"onupdate", "downLifeRedGage",
+			"onupdatetarget", this.gameObject
+		));
 	}
 }
