@@ -28,7 +28,6 @@ public class EnemyWarriorController : MonoBehaviour {
 
 		if (invisible == true) {
 			timer += Time.deltaTime;
-			Debug.Log (timer);
 			if (timer >= interval) {
 				invisible = false;
 				timer = 0;
